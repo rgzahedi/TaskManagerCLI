@@ -3,5 +3,6 @@ data class Task(
     var name: String,
     var description: String,
     var status: Boolean,
-    var dueDate: String
+    var dueDate: String,
+    var priority: String
 )

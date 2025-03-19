@@ -16,7 +16,10 @@ fun main() {
         println("4. Update task")
         println("5. List Completed Tasks")
         println("6. List Incomplete Tasks")
-        println("7. Exit")
+        println("7. List Low Priority Tasks")
+        println("8. List Medium Priority Tasks")
+        println("9. List High Priority Tasks")
+        println("10. Exit")
         print("Choose an option: ")
 
         when (readlnOrNull()) {
@@ -28,8 +31,13 @@ fun main() {
                 val description = readlnOrNull()
                 print("Enter due date: ")
                 val dueDate = readlnOrNull()
+                print("Enter the priority: ")
+                val priority = readlnOrNull()
+                if (priority != "low" && priority != "medium" && priority != "high") {
+                    throw InvalidPriority()
+                }
                 if (name != null && description != null && dueDate != null) {
-                    taskManager.addTask(name, description, dueDate)
+                    taskManager.addTask(name, description, dueDate, priority)
                 }
             }
             "3" -> {
@@ -68,6 +76,15 @@ fun main() {
                             val dueDate = readlnOrNull()
                             taskManager.updateTaskDueDate(id, dueDate)
                         }
+                        "Priority" -> {
+                            print("Update the priority on this: ")
+                            val priority = readlnOrNull()
+                            if (priority == "low" || priority == "medium" || priority == "high") {
+                                taskManager.updateTaskPriority(id, priority)
+                            } else {
+                                throw InvalidPriority()
+                            }
+                        }
                         "Done" -> {
                             break
                         }
@@ -77,7 +94,10 @@ fun main() {
             }
             "5" -> taskManager.listCompleteTasks()
             "6" -> taskManager.listIncompleteTasks()
-            "7" -> {
+            "7" -> taskManager.listLowPriorityTasks()
+            "8" -> taskManager.listMedPriorityTasks()
+            "9" -> taskManager.listHighPriorityTasks()
+            "10" -> {
                 taskManager.saveTasks()
                 println("Goodbye!")
                 break
@@ -88,3 +108,5 @@ fun main() {
 }
 
 class InvalidInput : Exception("Invalid option, must use something else!")
+
+class InvalidPriority: Exception("Invalid priority naming, must use low, medium, or high!")

@@ -4,10 +4,9 @@ class TaskManager {
     private val tasks = mutableListOf<Task>()
     private var nextId = 1
     private val file = File("tasks.txt")
-    private val priority = Priority
 
-    fun addTask(name: String, description: String, dueDate: String) {
-        val task = Task(nextId, name, description, false, dueDate)
+    fun addTask(name: String, description: String, dueDate: String, priority: String) {
+        val task = Task(nextId, name, description, false, dueDate, priority)
         tasks.add(task)
         println("Task added: $name")
     }
@@ -62,6 +61,16 @@ class TaskManager {
         }
     }
 
+    fun updateTaskPriority(id: Int?, priority: String?) {
+        val task = tasks.find { it.id == id }
+        if (task != null && priority != null) {
+            task.priority = priority
+            println("Task updated: ${task.priority}")
+        } else {
+            throw IncorrectID()
+        }
+    }
+
     private fun List<Task>.filterCompletion(filterFunction: (Task) -> (Boolean)): List<Task> {
         val resultList = mutableListOf<Task>()
         for (task in this) {
@@ -77,7 +86,7 @@ class TaskManager {
             println("No tasks to show!")
         } else {
             tasks.filterCompletion { it.status }.forEach { task ->
-                println("ID: ${task.id}, Name: ${task.name}, Completed: ${task.status}, Due Date: ${task.dueDate}")
+                println("ID: ${task.id}, Name: ${task.name}, Completed: ${task.status}, Due Date: ${task.dueDate}, Priority: ${task.priority}")
             }
         }
     }
@@ -87,18 +96,47 @@ class TaskManager {
             println("No tasks to show!")
         } else {
             tasks.filterCompletion { !it.status }.forEach { task ->
-                println("ID: ${task.id}, Name: ${task.name}, Completed: ${task.status}, Due Date: ${task.dueDate}")
+                println("ID: ${task.id}, Name: ${task.name}, Completed: ${task.status}, Due Date: ${task.dueDate}, Priority: ${task.priority}")
             }
         }
     }
 
+    fun listHighPriorityTasks() {
+        if (tasks.isEmpty()) {
+            println("No tasks to show!")
+        } else {
+            tasks.filterCompletion { it.priority == "high" }.forEach { task ->
+                println("ID: ${task.id}, Name: ${task.name}, Completed: ${task.status}, Due Date: ${task.dueDate}, Priority: ${task.priority}")
+            }
+        }
+    }
+
+    fun listMedPriorityTasks() {
+        if (tasks.isEmpty()) {
+            println("No tasks to show!")
+        } else {
+            tasks.filterCompletion { it.priority == "medium" }.forEach { task ->
+                println("ID: ${task.id}, Name: ${task.name}, Completed: ${task.status}, Due Date: ${task.dueDate}, Priority: ${task.priority}")
+            }
+        }
+    }
+
+    fun listLowPriorityTasks() {
+        if (tasks.isEmpty()) {
+            println("No tasks to show!")
+        } else {
+            tasks.filterCompletion { it.priority == "low" }.forEach { task ->
+                println("ID: ${task.id}, Name: ${task.name}, Completed: ${task.status}, Due Date: ${task.dueDate}, Priority: ${task.priority}")
+            }
+        }
+    }
 
     fun listTasks() {
         if (tasks.isEmpty()) {
             println("No tasks to show!")
         } else {
             tasks.forEach { task ->
-                println("ID: ${task.id}, Name: ${task.name}, Completed: ${task.status}, Due Date: ${task.dueDate}")
+                println("ID: ${task.id}, Name: ${task.name}, Completed: ${task.status}, Due Date: ${task.dueDate}, Priority: ${task.priority}")
             }
         }
     }
@@ -112,7 +150,8 @@ class TaskManager {
                     taskData[1],
                     taskData[2],
                     taskData[3].toBoolean(),
-                    taskData[4]
+                    taskData[4],
+                    taskData[5]
                 )
                 nextId++
                 tasks.add(task)
@@ -123,7 +162,7 @@ class TaskManager {
     fun saveTasks() {
         file.bufferedWriter().use { writer ->
             tasks.forEach {task ->
-                writer.write("${task.id},${task.name},${task.description},${task.status},${task.dueDate}\n")
+                writer.write("${task.id},${task.name},${task.description},${task.status},${task.dueDate},${task.priority}\n")
             }
         }
     }
