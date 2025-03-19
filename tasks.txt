@@ -1,5 +1,5 @@
-1,Milk; bread; eggs,Buy groceries,false,03/17/25
-2,Complete the math assignment for class,Finish homework,true,03/17/25
-3,Vacuum and dust the living room,Clean the house,false,03/20/25
-4,Call Dad,Check in with dad for plans for next week,true,03/21/25
-5,Start moving,Move my desk and clothes to my new place,true,04/01/25
+1,Milk; bread; eggs,Buy groceries,false,03/17/25,high
+2,Complete the math assignment for class,Finish homework,true,03/17/25,medium
+3,Vacuum and dust the living room,Clean the house,false,03/20/25,high
+4,Call Dad,Check in with dad for plans for next week,true,03/21/25,low
+5,Start moving,Move my desk and clothes to my new place,true,04/01/25,low
