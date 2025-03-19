@@ -38,31 +38,6 @@ To use the Task Manager CLI, you need to have Kotlin and Java installed. Follow 
 
     ```bash
     ./gradlew run
-    ```
-
-## Usage
-
-Once you run the CLI, you can interact with it through the following commands:
-
-- **Add a task**:  
-    ```bash
-    ./taskmanager add "Task description" "2025-03-20"
-    ```
-
-- **List all tasks**:  
-    ```bash
-    ./taskmanager list
-    ```
-
-- **Mark a task as completed**:  
-    ```bash
-    ./taskmanager complete 1
-    ```
-
-- **Remove a task**:  
-    ```bash
-    ./taskmanager remove 1
-    ```
 
 ## Contributing
 
@@ -73,10 +48,6 @@ If you'd like to contribute to this project, feel free to open issues or submit 
 3. Commit your changes.
 4. Push to your forked repository.
 5. Open a pull request to the main repository.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgements
 
